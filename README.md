@@ -5,15 +5,15 @@ A repo containing my data vizualizations for the #TidyTuesday initiative.
 
 ### Week 35 - Pell Grants
 
-![](/Week 35 TidyTuesday - Pell Grant/PellGrant.png)
+![](/Week35_TidyTuesday-PellGrant/PellGrant.png)
 
 ### Week 36 - LEGO
 
-![](/Week 36 TidyTuesday - LEGO/LEGO1.png)
+![](/Week36_TidyTuesday-LEGO/LEGO1.png)
 
 ### Week 37 - Bigfoot
 
-![](/Week 37 TidyTuesday - Bigfoot/bigfoot1.png)
-![](/Week 37 TidyTuesday - Bigfoot/bigfoot2.png)
-![](/Week 37 TidyTuesday - Bigfoot/bigfoot3.png)
+![](/Week37_TidyTuesday-Bigfoot/bigfoot1.png)
+![](/Week37_TidyTuesday-Bigfoot/bigfoot2.png)
+![](/Week37_TidyTuesday-Bigfoot/bigfoot3.png)
 
