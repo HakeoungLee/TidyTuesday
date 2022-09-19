@@ -1,0 +1,54 @@
+---
+title: "Week3-Tidytuesday"
+author: "Hakeoung Hannah Lee"
+date: "2022-09-12"
+output: html_document
+---
+
+```{r}
+library(tidytuesdayR)
+library(tidyverse)
+```
+
+```{r}
+inventories <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-09-06/inventories.csv.gz')
+inventory_sets <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-09-06/inventory_sets.csv.gz')
+sets <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-09-06/sets.csv.gz')
+```
+```{r}
+glimpse(sets)
+```
+```{r}
+range(sets$year)
+```
+```{r}
+new_sets <- sets %>% 
+# filter for Harry Potter related
+    filter(grepl("Harry Potter|Hogwarts|Grimmauld|Dumbledore|Quidditch|Shrieking Shack|Sirius|Hagrid|Slytherin|Dobby|Snape|Knockturn|Aragog|Chamber of Secrets|Knight Bus|Merpeople|Graveyard Duel|Diagon|Weasley|Voldemort|Expecto Patronum|Forbidden Forest|Monster Book|Hermione|Gryffindor", name)) %>% 
+    arrange(desc(num_parts))
+
+glimpse(new_sets)
+```
+```{r}
+hp <- subset(new_sets, select = c(name, num_parts)) %>%
+  slice(1:5)
+
+hp
+```
+```{r}
+ggplot(hp, aes(x=name, y=num_parts, fill=name)) +
+  geom_bar(stat="identity", width=1) 
+```
+
+```{r}
+pie <- ggplot(hp, aes(x="", y=num_parts, fill=name)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) + geom_text(aes(label = num_parts), position = position_stack(vjust = 0.5)) +
+  labs(x = NULL, y = NULL, fill = "Name of the LEGO product", title = "LEGO Harry Potter Series", subtitle = "Top 5 Harry Potter series with the most pieces", caption = "@Hakeoung Hannah Lee | tidytuesday 09-06-22") + 
+  theme_classic() + theme(axis.line = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank(),
+          plot.title = element_text())
+
+pie
+```  
