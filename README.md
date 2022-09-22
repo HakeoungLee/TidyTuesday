@@ -1,5 +1,5 @@
 # TidyTuesday
-A repo containing my data vizualizations for the TidyTuesday initiative.
+A repo containing Hannah's data vizualizations for the TidyTuesday initiative :)
 
 ## 2021
 
