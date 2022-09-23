@@ -26,4 +26,4 @@ A repo containing Hannah's data vizualizations for the TidyTuesday initiative :)
 
 ### Week 38 - Hydro Waste Water Plants
 
-1[](/Week38_TidyTuesday-HydroWastewaterPlants/hydrowaste.png)
+![](/Week38_TidyTuesday-HydroWastewaterPlants/hydrowaste.png)
