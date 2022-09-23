@@ -1,0 +1,60 @@
+---
+title: "Week4-Homework 3"
+author: "Hakeoung Hannah Lee"
+date: "2022-09-14"
+output: html_document
+---
+
+```{r setup}
+#library(tidytuesdayR)
+library(tidyverse)
+library(ggplot2)
+library(scales)
+library(ggthemes)
+```
+
+```{r load data}
+tuesdata <- tidytuesdayR::tt_load('2021-03-02')
+youtube <- tuesdata$youtube
+```
+```{r glimpse-data}
+glimpse(youtube)
+```
+```{r check brand}
+table(youtube$brand)
+table(youtube$year)
+```
+
+
+```{r correction}
+sb <- youtube %>%
+  mutate(brand = recode(brand, "Hynudai" = "Hyundai"))
+```
+
+```{r plot code}
+options(dplyr.summarise.inform = FALSE)
+
+sb2 <- sb %>%
+  pivot_longer(funny:use_sex
+               , names_to = 'Strategy') %>%
+  group_by(brand, Strategy) %>%
+  summarize(percent = mean(value)) %>%
+  ggplot(aes(Strategy, brand, fill = percent)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "#BBC4E6", high = "#5A1A36", midpoint = 0.5) +
+  theme_gray() +
+  theme(legend.text = element_text(size = 8),
+        axis.text = element_text(size = 7, face = "bold"),
+        legend.title = element_text(size = 9, face = "bold"),
+        legend.position = 'right',        
+        plot.title = element_text(face = "bold")
+        ) +
+  labs(fill = 'Percent',
+       title = 'Suberbowl Ads Strategies by Brands (2000-2020)',
+       subtitle = 'How do major brands use different advertising strategies? \n',
+       caption = "\n @Hakeoung Hannah Lee | Source: 2021-03-02 tidytuesday")
+
+plot(sb2)
+```
+
+Using the 2021-03-02 tidytuesday Superbowl data, we examined how major brands employed distinct advertising strategies over the 2000-2020 Superbowls. We focused on each logical strategy variable (funny, show product quickly, patriotic, celebrity, danger, animals, use sexuality) and the mean value of each variable to heatmap. We discovered that Bud Light highlights the fun aspect the most, similar with Doritos's advertising strategy. Additionally, we can see that Toyota uses strategy of quickly showing product the most.
