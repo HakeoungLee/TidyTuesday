@@ -6,6 +6,7 @@ A repo containing Hannah's data vizualizations for the TidyTuesday initiative :)
 ### Week 10 - Superbowl
 
 ![](/Week10_TidyTuesday-Superbowl/Superbowl_by_major_car_brands.png)
+![](/Week10_TidyTuesday-Superbowl/Superbowl_by_brands.png)
 
 ## 2022
 
