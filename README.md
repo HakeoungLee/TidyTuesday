@@ -27,3 +27,7 @@ A repo containing Hannah's data vizualizations for the TidyTuesday initiative :)
 ### Week 38 - Hydro Waste Water Plants
 
 ![](/Week38_TidyTuesday-HydroWastewaterPlants/hydrowaste.png)
+
+### Week 39 - Artists in USA Workforce
+
+![](/Week39_TidyTuesday-Artists/artists.png)
