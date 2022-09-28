@@ -1,0 +1,46 @@
+---
+title: "Week6-TidyTuesday"
+author: "Hakeoung Hannah Lee"
+date: "2022-09-27"
+output: html_document
+---
+
+```{r setup}
+library(tidyverse)
+#install.packages("usmap")
+library(usmap)
+library(ggplot2)
+```
+
+
+```{r data load}
+tuesdata <- tidytuesdayR::tt_load(2022, week = 39)
+artists <- tuesdata$artists
+```
+
+```{r glimpse}
+glimpse(artists)
+```
+
+```{r}
+artists_state <- artists %>%
+  group_by(state) %>%
+  summarise(total_artists = sum(artists_n, na.rm = TRUE))
+
+artists_state
+```
+
+```{r}
+plot_usmap(data = artists_state, values = "total_artists") +
+  scale_fill_continuous(low = "white", high = "red", name = "Artist by states", label = scales::comma) + 
+  labs(title = "Artists in the USA Workforce by states (2015-2019)", subtitle = "This map shows state-level estimates of artists in the workforce.", caption = "@Hakeoung Hannah Lee | Source: 2022-09-27 tidytuesday") +
+  theme(panel.background = element_rect(color = "black", fill = "gray"), legend.position = "right") +
+  theme(legend.text = element_text(size = 9),
+        legend.title = element_text(size = 11, face = "bold"),
+        legend.position = 'right',
+        plot.title = element_text(size = 15, face = "bold"),
+        plot.subtitle = element_text(size = 12),
+        plot.caption = element_text(size = 10)
+        )
+```
+
