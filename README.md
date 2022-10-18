@@ -31,3 +31,7 @@ A repo containing Hannah's data vizualizations for the TidyTuesday initiative :)
 ### Week 39 - Artists in USA Workforce
 
 ![](/Week39_TidyTuesday-Artists/artists.png)
+
+### Week 41 - Ravelry Yarn
+
+![](/Week41_TidyTuesday-Ravelry/ravelry.png)
