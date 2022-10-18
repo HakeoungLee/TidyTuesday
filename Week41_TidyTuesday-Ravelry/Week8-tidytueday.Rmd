@@ -1,0 +1,47 @@
+---
+title: "Week8-TidyTuesday"
+author: "Hakeoung Hannah Lee"
+date: "2022-10-12"
+output: html_document
+---
+
+```{r setup}
+library(tidyverse)
+library(ggplot2)
+```
+
+
+```{r data load}
+tuesdata <- tidytuesdayR::tt_load(2022, week = 41)
+yarn <- tuesdata$yarn
+```
+
+```{r glimpse}
+glimpse(yarn)
+```
+
+```{r}
+yarn2 <- yarn %>%
+  group_by(yarn_company_name) %>%
+  summarise(unit_weight_grams = mean(grams, na.rm = TRUE)) %>%
+  arrange(desc(unit_weight_grams)) %>%
+  head(10) %>%
+  ungroup()
+
+glimpse(yarn2)
+  
+```
+
+```{r}
+ggplot(yarn2, aes(x=yarn_company_name, y=unit_weight_grams)) +
+  geom_segment(aes(x=yarn_company_name, xend=yarn_company_name, y=0, yend=unit_weight_grams), color="skyblue") +
+  coord_flip() +
+  geom_point(size=7, color="DarkBlue", fill=alpha("hotpink", 0.3), alpha=3, shape=21, stroke=1) +
+  theme_light() +
+  theme(panel.grid.major.y = element_blank(),
+      panel.border = element_blank(),
+      axis.ticks.y = element_blank()
+      ) +
+  labs(title = "Top Ten Heaviest Average Unit Weight in Grams by Yarn Companies \n", caption = "@Hakeoung Hannah Lee | Source: 2022-10-11 tidytuesday")
+```
+
