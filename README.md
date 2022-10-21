@@ -35,3 +35,8 @@ A repo containing Hannah's data vizualizations for the TidyTuesday initiative :)
 ### Week 41 - Ravelry Yarn
 
 ![](/Week41_TidyTuesday-Ravelry/ravelry.png)
+
+### Week 42 - Stranger Things
+
+![](/Week42_TidyTuesday-StrangerThings/strangerthings.png)
+
