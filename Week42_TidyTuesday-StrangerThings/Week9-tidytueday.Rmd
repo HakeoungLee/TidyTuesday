@@ -1,0 +1,56 @@
+---
+title: "Week9-TidyTuesday"
+author: "Hakeoung Hannah Lee"
+date: "2022-10-20"
+output: html_document
+---
+
+```{r setup}
+library(tidyverse)
+library(tidytext)
+library(ggplot2)
+library(ggthemes)
+```
+
+
+```{r data load}
+tuesdata <- tidytuesdayR::tt_load(2022, week = 42)
+st <- tuesdata$stranger_things_all_dialogue
+episodes <- tuesdata$episodes
+```
+
+```{r glimpse}
+glimpse(episodes)
+glimpse(st)
+```
+
+```{r filter - Extract words from stage_direction that end with "es"}
+st_es <- st %>% 
+  select(season, episode, stage_direction) %>% 
+  drop_na(stage_direction) %>% 
+  unnest_tokens(word, stage_direction) %>% 
+  filter(str_ends(word, "es"))
+```
+
+```{r plot}
+st_es %>% 
+  group_by(season) %>% 
+  dplyr::count(word, sort = T) %>% 
+  ungroup() %>% 
+  group_by(season) %>% 
+  top_n(10) %>% 
+  mutate(word = reorder_within(word, n, season)) %>% 
+  ggplot(aes(x=word, y=n)) +
+  geom_col(fill="pink", color="black",size=0.5, alpha=0.8) +
+  coord_flip(clip="off") +
+  facet_wrap(.~paste0("Season ",season), scales="free", ncol=2) +
+  labs(title = "Top 10 -es Verb Forms in Stranger Things",
+       subtitle = "from stage directions seasons 1 to 4",
+       caption = "@Hakeoung Hannah Lee | Source: Week 42 tidytuesday | \n Reference: @c_borstell") +
+  theme_update() +
+  theme(panel.grid.major.y = element_blank(),
+      panel.border = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.title = element_blank()
+      )
+```
