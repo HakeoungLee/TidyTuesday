@@ -1,0 +1,75 @@
+---
+title: "Week12-TidyTuesday"
+author: "Hakeoung Hannah Lee"
+date: "2022-11-08"
+output: html_document
+---
+
+```{r setup}
+library(tidyverse)
+library(tidytext)
+library(ggplot2)
+library(ggthemes)
+library(usmap)
+```
+
+
+```{r data load}
+tuesdata <- tidytuesdayR::tt_load(2022, week = 45)
+state_stations <- tuesdata$state_stations
+station_info <- tuesdata$station_info
+```
+```{r}
+state_map <- usmap::us_map() %>%
+  mutate(state = tolower(gsub("_", " ", full)))
+```
+
+
+```{r}
+state_stations <- state_stations %>%
+  mutate(id = row_number(),
+         state = tolower(gsub("_", " ", state))) %>%
+  group_by(state) %>%
+  mutate(total_station_state = length(state)) %>%
+  ungroup() %>% 
+  unnest_tokens(input = format, output = deconstruct_format)
+```
+
+```{r}
+glimpse(state_stations)
+table(state_stations$deconstruct_format)
+```
+
+```{r}
+plot_data <- state_stations %>%
+  group_by(id) %>%
+  mutate(is_target = any(deconstruct_format == "educational")) %>% 
+  ungroup() %>%
+  select(!deconstruct_format) %>%
+  distinct() %>%
+  group_by(state) %>%
+  mutate(prop_target = mean(is_target, na.rm = TRUE)) %>%
+  ungroup() %>%
+  left_join(state_map, by = c("state")) %>% 
+  select(x, y, prop_target, group, state) %>%
+  distinct()
+```
+
+```{r plot}
+legend_range = range(plot_data$prop_target)
+
+xmid <- mean(range(plot_data$x))
+ymin <- min(plot_data$y)
+
+ggplot(data = plot_data, aes(x = x, y = y, group = group)) + 
+  geom_polygon(aes(fill = prop_target)) + 
+  scale_fill_gradient(low = "bisque", high = "hotpink",
+                      breaks = legend_range,
+                      labels = scales::percent(legend_range)) +
+  geom_path(color = "white") +
+  labs(title = "Radio stations in the US",
+       subtitle = "Proportion of radio stations containing the word 'Educational' in the format",
+       caption = "@Hakeoung Hannah Lee | Source: Week 42 tidytuesday | \n Reference: Github @jcken95") +
+  theme_update() +
+  theme(axis.title = element_blank())
+```
