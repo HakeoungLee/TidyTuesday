@@ -42,4 +42,4 @@ A repo containing Hannah's data vizualizations for the TidyTuesday initiative :)
 
 ### Week 45 - Radio Stations
 
-![](/Week45_TidyTuesday-RadioStations/radiostations.png)
+![](/Week45_TidyTuesday-RadioStations/radiostations)
